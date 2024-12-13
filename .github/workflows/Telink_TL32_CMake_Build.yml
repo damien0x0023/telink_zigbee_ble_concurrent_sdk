@@ -1,21 +1,21 @@
 name: Telink_TL32_CMake_Build
 
-# on: [push, pull_request]
-on: 
-  workflow_dispatch:
-    inputs:
-      cproject:
-        description: |
-          'Select the compiled project, cproject path'
-          './telink_zigbee_ble_concurrent/build/iot_riscv_b92/.cproject'
-        required: true
-        default: './telink_zigbee_ble_concurrent/build/iot_riscv_b92/.cproject'
-      target:
-        description: |
-          'Select the compiled configuration'
-          'concurrent_sampleLight_b92'
-        required: true
-        default: 'concurrent_sampleLight_b92'
+on: [push, pull_request]
+# on: 
+#   workflow_dispatch:
+#     inputs:
+#       cproject:
+#         description: |
+#           'Select the compiled project, cproject path'
+#           './telink_zigbee_ble_concurrent/build/iot_riscv_b92/.cproject'
+#         required: true
+#         default: './telink_zigbee_ble_concurrent/build/iot_riscv_b92/.cproject'
+#       target:
+#         description: |
+#           'Select the compiled configuration'
+#           'concurrent_sampleLight_b92'
+#         required: true
+#         default: 'concurrent_sampleLight_b92'
 
 jobs:
   Linux_CMake_Convert:
