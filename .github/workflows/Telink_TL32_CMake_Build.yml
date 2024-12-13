@@ -88,13 +88,13 @@ jobs:
     #     echo "parameter_name ${{ github.event.inputs.target }}"
     #     cmake --build cmake_build --target "${{ github.event.inputs.target }}" -j16
 
-    - name: upload cmake artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: cmake-files
-        path: |
-          ./**/CMakeLists.txt
-        retention-days: 1
+    # - name: upload cmake artifacts
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: cmake-files
+    #     path: |
+    #       ./**/CMakeLists.txt
+    #     retention-days: 1
 
   Linux_CMake_build:
     runs-on: ubuntu-latest
@@ -149,7 +149,7 @@ jobs:
       run: |
         echo "cmake building..."
         cmake --version
-        cmake telink_zigbee_ble_concurrent_sdk -Bcmake_build -G "Unix Makefiles"  -DTOOLCHAIN_PATH=$(pwd)/V512f_Linux_X64/nds32le-elf-mculib-v5f
+        cmake telink_zigbee_ble_concurrent_sdk -Bcmake_build -G "Unix Makefiles"  -DTOOLCHAIN_PATH=$(pwd)/V512f_Linux_X64/nds32le-elf-mculib-v5f -DCMAKE_C_COMPILER_FORCED=TRUE -DCMAKE_CXX_COMPILER_FORCED=TRUE 
         cmake --build cmake_build --target concurrent_sampleLight_b92 -j32
 
     - name: upload cmake output artifacts
