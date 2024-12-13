@@ -1,32 +1,12 @@
 name: Telink_TL32_CMake_Build
 
 on: [push, pull_request]
-# on: 
-#   workflow_dispatch:
-#     inputs:
-#       cproject:
-#         description: |
-#           'Select the compiled project, cproject path'
-#           './telink_zigbee_ble_concurrent/build/iot_riscv_b92/.cproject'
-#         required: true
-#         default: './telink_zigbee_ble_concurrent/build/iot_riscv_b92/.cproject'
-#       target:
-#         description: |
-#           'Select the compiled configuration'
-#           'concurrent_sampleLight_b92'
-#         required: true
-#         default: 'concurrent_sampleLight_b92'
 
 jobs:
   prepare_env:
     runs-on: ubuntu-latest
     
     steps:
-    - name: check parameters
-      run: |
-        echo "cproject ${{ github.event.inputs.cproject }}"
-        echo "target ${{ github.event.inputs.target }}"
-
     - name: Checkout Repository
       uses: actions/checkout@v4
 
@@ -75,26 +55,6 @@ jobs:
           
         key: ${{ runner.os }}-toolchain-D25F-GCC10
 
-    # - name: convert cdt2cmake
-    #   run: |
-    #     echo "convert cdt2cmake"
-    #     ./cdt2cmake_Linux_X64/cdt2cmake.dist/cdt2cmake.bin ./telink_zigbee_ble_concurrent_sdk/build/iot_riscv_b92/.cproject -i
-    #     find . -name "CMakeLists.txt"
-    # - name: cmake build
-    #   run: |
-    #     echo "cmake building..."
-    #     ls
-    #     cmake ./b85_ble_sdk -Bcmake_build -DTOOLCHAIN_PATH="`pwd`/tc32"
-    #     echo "parameter_name ${{ github.event.inputs.target }}"
-    #     cmake --build cmake_build --target "${{ github.event.inputs.target }}" -j16
-
-    # - name: upload cmake artifacts
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: cmake-files
-    #     path: |
-    #       ./**/CMakeLists.txt
-    #     retention-days: 1
 
   Linux_CMake_build:
     runs-on: ubuntu-latest
@@ -112,12 +72,6 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    # - name: Download and extract CMakeLists.txt files
-    #   uses: actions/download-artifact@v4
-    #   with:
-    #     name: cmake-files
-    #     path: .
-
     - name: Restore Cached Toolchain
       id: Restore_Cached_Toolchain
       uses: actions/cache@v4
@@ -128,16 +82,7 @@ jobs:
         key: ${{ runner.os }}-toolchain-D25F-GCC10
         restore-keys: |
           ${{ runner.os }}-toolchain-D25F-GCC10
-     
-  #   - if: ${{ steps.Restore_Cached_Toolchain.outputs.cache-hit != 'true' }}
-  #     name: Cache Toolchain
-  #     uses: actions/cache@v4
-  #     with:
-  #       path: |
-  #         # cdt2cmake
-  #         tc32
-  #       key: ${{ runner.os }}-toolchain-tc32
-  
+    
     - name: convert cdt2cmake
       run: |
         echo "convert cdt2cmake"
