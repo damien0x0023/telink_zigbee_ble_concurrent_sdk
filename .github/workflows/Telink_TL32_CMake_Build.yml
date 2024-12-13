@@ -45,21 +45,23 @@ jobs:
       name: download and decompression toolchain
       run: |
         curl -o V512f_Linux_X64.tar.xz https://wiki.telink-semi.cn/tools_and_sdk/others/toolchains/V512f_Linux_X64.tar.xz
-        tar -xvf V512f_Linux_X64.tar.xz
+        tar -xf V512f_Linux_X64.tar.xz V512f_Linux_X64
         if [ $? != 0 ]; then
           echo "download toolchain fail"
           exit 1
         fi
+        ls
         ls V512f_Linux_X64
         
         
         curl -o cdt2cmake_Linux_X64.tar.xz https://wiki.telink-semi.cn/tools_and_sdk/others/cdt2cmake_Linux_X64_0.4.7.tar.xz
-        tar -xvf cdt2cmake_Linux_X64.tar.xz
+        tar -xf cdt2cmake_Linux_X64.tar.xz cdt2cmake_Linux_X64
         if [ $? != 0 ]; then
           echo "download cdt2cmake fail"
           exit 1
         fi
-        ls cdt2cmake_Linux_X64_0.4.7
+        ls
+        ls cdt2cmake_Linux_X64
         
     - if: ${{ steps.Restore_Cached_Toolchain.outputs.cache-hit != 'true' }}
       name: Cache Toolchain
