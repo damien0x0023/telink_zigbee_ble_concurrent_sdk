@@ -103,4 +103,3 @@ jobs:
         name: cmake-bin-files
         path: |
           cmake_build/concurrent_sampleLight_b92*
-        retention-days: 1
